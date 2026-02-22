@@ -1,14 +1,14 @@
-import java.util.Date;
+import java.time.LocalDate;
 
 public class Tarefa {
     private String nome;
     private String descricao;
-    private Date dataTermino;
+    private LocalDate dataTermino;
     private NivelPrioridade nivelPrioridade;
     private String categoria;
     private Status status;
 
-    public Tarefa(String nome, String descricao, Date dataTermino, int nivelPrioridade, String categoria, int indicadorStatus) {
+    public Tarefa(String nome, String descricao, LocalDate dataTermino, int nivelPrioridade, String categoria, int indicadorStatus) {
         this.nome = nome;
         this.descricao = descricao;
         this.dataTermino = dataTermino;
@@ -41,11 +41,11 @@ public class Tarefa {
         this.nivelPrioridade = new NivelPrioridade(nivelPrioridade);
     }
 
-    public Date getDataTermino() {
+    public LocalDate getDataTermino() {
         return dataTermino;
     }
 
-    public void setDataTermino(Date dataTermino) {
+    public void setDataTermino(LocalDate dataTermino) {
         this.dataTermino = dataTermino;
     }
 
