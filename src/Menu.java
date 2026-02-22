@@ -1,6 +1,7 @@
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.Scanner;
 
 public class Menu {
@@ -57,6 +58,33 @@ public class Menu {
 
                 System.out.println(tarefa);
                 System.out.println(listaTarefas);
+            }
+
+            if(resposta == 2){
+                int opcaoListagem;
+
+                System.out.println("Você deseja listar as tarefas por: ");
+                System.out.println("1 - Categoria");
+                System.out.println("2 - Prioridade");
+                System.out.println("3 - Status");
+
+                opcaoListagem = Integer.parseInt(leitura.nextLine());
+
+                if (opcaoListagem == 1) {
+                    listaTarefas.sort((Tarefa t1, Tarefa t2) -> t1.getCategoria().compareToIgnoreCase(t2.getCategoria()));
+                }else if(opcaoListagem == 2){
+                    listaTarefas.sort(Comparator.comparing(Tarefa::getNivelPrioridade));
+                }else if(opcaoListagem == 3){
+                    listaTarefas.sort(Comparator.comparing(Tarefa::getStatus));
+                }else{
+                    System.out.println("Opção inexistente!");
+                }
+
+                if(opcaoListagem >= 1 && opcaoListagem <= 3) {
+                    for (Tarefa tarefa : listaTarefas) {
+                        System.out.println(tarefa);
+                    }
+                }
             }
         }while(resposta != 5);
     }

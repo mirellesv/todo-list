@@ -1,4 +1,4 @@
-public class NivelPrioridade {
+public class NivelPrioridade implements Comparable<NivelPrioridade> {
     private int nivelPrioridade;
     private String descricaoPrioridade;
 
@@ -47,5 +47,10 @@ public class NivelPrioridade {
                 "nivelPrioridade=" + nivelPrioridade +
                 ", descricaoPrioridade='" + descricaoPrioridade + '\'' +
                 '}';
+    }
+
+    @Override
+    public int compareTo(NivelPrioridade outro) {
+        return this.nivelPrioridade < outro.nivelPrioridade ? 1 : this.nivelPrioridade > outro.nivelPrioridade ? -1 : 0;
     }
 }

@@ -1,4 +1,5 @@
-public class Status {
+public class Status implements Comparable<Status> {
+    private int indicador;
     private String status;
 
     public Status(int indicador){
@@ -30,5 +31,10 @@ public class Status {
         return "Status{" +
                 "status='" + status + '\'' +
                 '}';
+    }
+
+    @Override
+    public int compareTo(Status outro) {
+        return Integer.compare(this.indicador, outro.indicador);
     }
 }
