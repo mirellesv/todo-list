@@ -212,7 +212,7 @@ public class Menu {
                                     System.out.println(listaTarefas.get(tarefaEscolhida));
 
                                     System.out.println("Status alterado com sucesso!");
-                                    
+
                                     break;
                                 case 7:
                                     System.out.println("Voltando ao menu...");
@@ -222,6 +222,39 @@ public class Menu {
                             }
                         }while(propriedadeEscolhida != 7);
                     }
+                }else{
+                    System.out.println("Não existem tarefas registradas!");
+                }
+            }
+
+            if(resposta == 4){
+                if(!listaTarefas.isEmpty()){
+                    int tarefaEscolhida;
+
+                    for(int i = 0; i < listaTarefas.size(); i++){
+                        System.out.println("Tarefa " + (i + 1) + ": " + listaTarefas.get(i));
+                    }
+
+                    do{
+                        System.out.println("Qual tarefa deseja apagar? (1 - " + listaTarefas.size() + ") ");
+                        tarefaEscolhida = Integer.parseInt(leitura.nextLine()) - 1;
+
+                        if(tarefaEscolhida >= 0 && tarefaEscolhida < listaTarefas.size()){
+                            listaTarefas.remove(tarefaEscolhida);
+
+                            for(int i = 0; i < listaTarefas.size(); i++){
+                                System.out.println("Tarefa " + (i + 1) + ": " + listaTarefas.get(i));
+                            }
+
+                            System.out.println("Tarefa removida com sucesso!");
+
+                            if(listaTarefas.size() == 0){
+                                break;
+                            }
+                        }else{
+                            System.out.println("Selecione uma tarefa válida!");
+                        }
+                    }while(tarefaEscolhida < 0 || tarefaEscolhida >= listaTarefas.size());
                 }else{
                     System.out.println("Não existem tarefas registradas!");
                 }
