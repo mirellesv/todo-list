@@ -57,6 +57,9 @@ public class Menu {
                 listaTarefas.add(tarefa);
 
                 System.out.println(tarefa);
+
+                listaTarefas.sort(Comparator.comparing(Tarefa::getNivelPrioridade));
+
                 System.out.println(listaTarefas);
             }
 
