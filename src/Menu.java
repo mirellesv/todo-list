@@ -1,11 +1,13 @@
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Menu {
     public static void menu(){
         int resposta;
         Scanner leitura = new Scanner(System.in);
+        ArrayList<Tarefa> listaTarefas = new ArrayList<Tarefa>();
 
         do{
             System.out.println("GERENCIADOR DE TAREFAS");
@@ -16,45 +18,47 @@ public class Menu {
             System.out.println("5 - Sair");
             System.out.println("Digite a opção desejada: ");
             resposta = Integer.parseInt(leitura.nextLine());
-        }while(resposta < 0);
 
-        if(resposta == 1){
-            String nomeTarefa, descricaoTarefa, categoriaTarefa;
-            LocalDate dataTerminoTarefa;
-            int nivelPrioridadeTarefa, statusTarefa;
+            if(resposta == 1){
+                String nomeTarefa, descricaoTarefa, categoriaTarefa;
+                LocalDate dataTerminoTarefa;
+                int nivelPrioridadeTarefa, statusTarefa;
 
-            System.out.println("--------- Criação de Tarefa ---------");
+                System.out.println("--------- Criação de Tarefa ---------");
 
-            System.out.println("Nome da tarefa: ");
-            nomeTarefa = leitura.nextLine();
+                System.out.println("Nome da tarefa: ");
+                nomeTarefa = leitura.nextLine();
 
-            System.out.println("Breve descrição: ");
-            descricaoTarefa = leitura.nextLine();
+                System.out.println("Breve descrição: ");
+                descricaoTarefa = leitura.nextLine();
 
-            System.out.println("Data de término: ");
-            dataTerminoTarefa = formataData(leitura.nextLine());
+                System.out.println("Data de término: ");
+                dataTerminoTarefa = formataData(leitura.nextLine());
 
-            System.out.println("Nível de prioridade");
-            System.out.println("1 - Baixo");
-            System.out.println("2 - Moderada");
-            System.out.println("3 - Média");
-            System.out.println("4 - Alta");
-            System.out.println("5 - Crítica");
-            nivelPrioridadeTarefa = Integer.parseInt(leitura.nextLine());
+                System.out.println("Nível de prioridade");
+                System.out.println("1 - Baixo");
+                System.out.println("2 - Moderada");
+                System.out.println("3 - Média");
+                System.out.println("4 - Alta");
+                System.out.println("5 - Crítica");
+                nivelPrioridadeTarefa = Integer.parseInt(leitura.nextLine());
 
-            System.out.println("Categoria: ");
-            categoriaTarefa = leitura.nextLine();
+                System.out.println("Categoria: ");
+                categoriaTarefa = leitura.nextLine();
 
-            System.out.println("Status");
-            System.out.println(("1 - TODO"));
-            System.out.println("2 - Doing");
-            System.out.println("3 - Done");
-            statusTarefa = Integer.parseInt(leitura.nextLine());
+                System.out.println("Status");
+                System.out.println(("1 - TODO"));
+                System.out.println("2 - Doing");
+                System.out.println("3 - Done");
+                statusTarefa = Integer.parseInt(leitura.nextLine());
 
-            Tarefa tarefa = new Tarefa(nomeTarefa, descricaoTarefa, dataTerminoTarefa, nivelPrioridadeTarefa, categoriaTarefa, statusTarefa);
+                Tarefa tarefa = new Tarefa(nomeTarefa, descricaoTarefa, dataTerminoTarefa, nivelPrioridadeTarefa, categoriaTarefa, statusTarefa);
+                listaTarefas.add(tarefa);
 
-            System.out.println(tarefa);
-        }
+                System.out.println(tarefa);
+                System.out.println(listaTarefas);
+            }
+        }while(resposta != 5);
     }
 
     public static LocalDate formataData(String entradaData){
