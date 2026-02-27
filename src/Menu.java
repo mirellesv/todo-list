@@ -47,8 +47,7 @@ public class Menu {
         System.out.println("Breve descrição: ");
         descricaoTarefa = leitura.nextLine();
 
-        System.out.println("Data de término: ");
-        dataTerminoTarefa = lerData(leitura);
+        dataTerminoTarefa = lerData("Data de término (ex: 27/02/2026): ");
 
         System.out.println("Nível de prioridade: ");
         System.out.println("1 - Baixo");
@@ -169,8 +168,7 @@ public class Menu {
 
                             System.out.println("Data de término: ");
                             System.out.println(servicoTarefa.obter(tarefaEscolhida).getDataTermino());
-                            System.out.println("Nova data de término (dia/mês/ano): ");
-                            novaDataTarefa = lerData(leitura);
+                            novaDataTarefa = lerData("Nova data de término (ex: 27/02/2026): ");
 
                             servicoTarefa.obter(tarefaEscolhida).setDataTermino(novaDataTarefa);
 
@@ -294,14 +292,14 @@ public class Menu {
         }
     }
 
-    private LocalDate lerData(Scanner leitura) {
+    private LocalDate lerData(String mensagem) {
         DateTimeFormatter formato = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-
         while (true) {
+            System.out.print(mensagem);
             try {
-                return LocalDate.parse(leitura.nextLine(), formato);
+                return LocalDate.parse(leitura.nextLine().trim(), formato);
             } catch (Exception e) {
-                System.out.println("Formato inválido! Por favor, insira no formato 00/00/0000: ");
+                System.out.println("Formato inválido! Use dd/MM/yyyy (ex: 27/02/2026).");
             }
         }
     }
