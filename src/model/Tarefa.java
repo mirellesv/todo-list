@@ -65,7 +65,7 @@ public class Tarefa {
 
     @Override
     public String toString() {
-        return "------------------------------\n" +
+        return "\n------------------------------\n" +
                 "Nome: " + nome + "\n" +
                 "Descrição: " + descricao + "\n" +
                 "Término: " + dataTermino + "\n" +
