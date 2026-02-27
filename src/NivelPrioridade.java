@@ -43,10 +43,8 @@ public class NivelPrioridade implements Comparable<NivelPrioridade> {
 
     @Override
     public String toString() {
-        return "NivelPrioridade{" +
-                "nivelPrioridade=" + nivelPrioridade +
-                ", descricaoPrioridade='" + descricaoPrioridade + '\'' +
-                '}';
+        return "    Nível: " + nivelPrioridade + "\n" +
+                "    Descrição: " + descricaoPrioridade;
     }
 
     @Override

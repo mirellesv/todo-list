@@ -63,13 +63,14 @@ public class Tarefa {
 
     @Override
     public String toString() {
-        return "Tarefa{" +
-                "nome=" + nome +
-                ", descricao=" + descricao +
-                ", dataTermino=" + dataTermino +
-                ", nivelPrioridade=" + nivelPrioridade +
-                ", categoria=" + categoria +
-                ", status=" + status +
-                '}';
+        return "------------------------------\n" +
+                "Nome: " + nome + "\n" +
+                "Descrição: " + descricao + "\n" +
+                "Término: " + dataTermino + "\n" +
+                "Prioridade:\n" +
+                nivelPrioridade + "\n" +
+                "Categoria: " + categoria + "\n" +
+                "Status: " + status + "\n" +
+                "------------------------------";
     }
 }
