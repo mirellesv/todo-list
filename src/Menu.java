@@ -21,20 +21,20 @@ public class Menu {
             System.out.println("3 - Atualizar tarefas");
             System.out.println("4 - Apagar tarefas");
             System.out.println("5 - Sair");
-            resposta = lerInteiro(leitura);
+            resposta = lerInteiro("Digite a opção desejada: ", 5);
 
             switch (resposta) {
-                case 1 -> criarTarefa(leitura, servicoTarefa);
-                case 2 -> acessarTarefa(leitura, servicoTarefa);
-                case 3 -> atualizarTarefa(leitura, servicoTarefa);
-                case 4 -> removerTarefa(leitura, servicoTarefa);
+                case 1 -> criarTarefa();
+                case 2 -> acessarTarefa();
+                case 3 -> atualizarTarefa();
+                case 4 -> removerTarefa();
                 case 5 -> System.out.println("Encerrando...");
                 default -> System.out.println("Opção inválida!");
             }
         }while(resposta != 5);
     }
 
-    private static void criarTarefa(Scanner leitura, ServicoTarefa servicoTarefa){
+    private void criarTarefa(){
         String nomeTarefa, descricaoTarefa, categoriaTarefa;
         LocalDate dataTerminoTarefa;
         int nivelPrioridadeTarefa, codigoStatus;
@@ -56,7 +56,7 @@ public class Menu {
         System.out.println("3 - Média");
         System.out.println("4 - Alta");
         System.out.println("5 - Crítica");
-        nivelPrioridadeTarefa = lerInteiro(leitura);
+        nivelPrioridadeTarefa = lerInteiro("Nível de prioridade (1 - 5): ", 5);
 
         System.out.println("Categoria: ");
         categoriaTarefa = leitura.nextLine();
@@ -65,7 +65,7 @@ public class Menu {
         System.out.println(("1 - TODO"));
         System.out.println("2 - Doing");
         System.out.println("3 - Done");
-        codigoStatus = lerInteiro(leitura);
+        codigoStatus = lerInteiro("Status (1 - 3): ", 3);
         Status status = Status.fromCodigo(codigoStatus);
 
         Tarefa tarefa = new Tarefa(nomeTarefa, descricaoTarefa, dataTerminoTarefa, nivelPrioridadeTarefa, categoriaTarefa, status);
@@ -77,7 +77,7 @@ public class Menu {
         }
     }
 
-    private static void acessarTarefa(Scanner leitura, ServicoTarefa servicoTarefa){
+    private void acessarTarefa(){
         int opcaoListagem;
 
         System.out.println("Você deseja listar as tarefas por: ");
@@ -85,7 +85,7 @@ public class Menu {
         System.out.println("2 - Prioridade");
         System.out.println("3 - Status");
 
-        opcaoListagem = lerInteiro(leitura);
+        opcaoListagem = lerInteiro("Digite a opção desejada (1 - 3): ", 3);
 
         if (opcaoListagem == 1) {
             servicoTarefa.ordenarPorCategoria();
@@ -104,7 +104,7 @@ public class Menu {
         }
     }
 
-    private static void atualizarTarefa(Scanner leitura, ServicoTarefa servicoTarefa){
+    private void atualizarTarefa(){
         if(!servicoTarefa.estaVazia()){
             int tarefaEscolhida;
 
@@ -113,7 +113,7 @@ public class Menu {
             }
 
             System.out.println("Qual tarefa desejar editar? (1 - " + servicoTarefa.tamanho() + ") ");
-            tarefaEscolhida = lerInteiro(leitura);
+            tarefaEscolhida = lerInteiro("Digite a tarefa desejada (1 - " + servicoTarefa.tamanho() + "): ", servicoTarefa.tamanho());
             tarefaEscolhida--;
 
             System.out.println("Tarefa escolhida: ");
@@ -131,7 +131,7 @@ public class Menu {
                     System.out.println("5 - Categoria");
                     System.out.println("6 - Status");
                     System.out.println("7 - Sair");
-                    propriedadeEscolhida = lerInteiro(leitura);
+                    propriedadeEscolhida = lerInteiro("Digite a opção desejada (1 - 7): ", 7);
 
                     switch(propriedadeEscolhida){
                         case 1:
@@ -189,8 +189,7 @@ public class Menu {
                             System.out.println("3 - Média");
                             System.out.println("4 - Alta");
                             System.out.println("5 - Crítica");
-                            System.out.println(("Novo nível de prioridade (1 - 5): "));
-                            novaPrioridadeTarefa = lerInteiro(leitura);
+                            novaPrioridadeTarefa = lerInteiro("Novo nível de prioridade (1 - 5): ", 5);
 
                             servicoTarefa.obter(tarefaEscolhida).setNivelPrioridade(novaPrioridadeTarefa);
 
@@ -222,8 +221,7 @@ public class Menu {
                             System.out.println("1 - TODO");
                             System.out.println("2 - Doing");
                             System.out.println("3 - Done");
-                            System.out.println(("Novo status (1 - 3): "));
-                            codigoNovoStatusTarefa = lerInteiro(leitura);
+                            codigoNovoStatusTarefa = lerInteiro("Novo status (1 - 3): ", 3);
 
                             Status status = Status.fromCodigo(codigoNovoStatusTarefa);
                             servicoTarefa.obter(tarefaEscolhida).setStatus(status);
@@ -246,7 +244,7 @@ public class Menu {
         }
     }
 
-    private static void removerTarefa(Scanner leitura, ServicoTarefa servicoTarefa){
+    private void removerTarefa(){
         if(!servicoTarefa.estaVazia()){
             int tarefaEscolhida;
 
@@ -256,7 +254,7 @@ public class Menu {
 
             do{
                 System.out.println("Qual tarefa deseja apagar? (1 - " + servicoTarefa.tamanho() + ") ");
-                tarefaEscolhida = lerInteiro(leitura);
+                tarefaEscolhida = lerInteiro("Digite a tarefa desejada (1 - " + servicoTarefa.tamanho() + "): ", servicoTarefa.tamanho());
                 tarefaEscolhida--;
 
                 if(tarefaEscolhida >= 0 && tarefaEscolhida < servicoTarefa.tamanho()){
@@ -280,18 +278,23 @@ public class Menu {
         }
     }
 
-    private static int lerInteiro(Scanner leitura){
-        while(true){
-            try{
-                System.out.println("Digite a opção desejada: ");
-                return Integer.parseInt(leitura.nextLine());
-            }catch(NumberFormatException e){
-                System.out.println("Digite um número!");
+    private int lerInteiro(String mensagem, int max){
+        while (true) {
+            System.out.print(mensagem);
+            try {
+                int valor = Integer.parseInt(leitura.nextLine().trim());
+                if (valor < 1 || valor > max) {
+                    System.out.println("Digite um número entre " + 1 + " e " + max + ".");
+                    continue;
+                }
+                return valor;
+            } catch (NumberFormatException e) {
+                System.out.println("Digite um número válido!");
             }
         }
     }
 
-    private static LocalDate lerData(Scanner leitura) {
+    private LocalDate lerData(Scanner leitura) {
         DateTimeFormatter formato = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 
         while (true) {
