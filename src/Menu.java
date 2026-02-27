@@ -13,8 +13,6 @@ public class Menu {
 
     public void iniciar(){
         int resposta;
-        Scanner leitura = new Scanner(System.in);
-        ServicoTarefa servicoTarefa = new ServicoTarefa();
 
         do{
             System.out.println("GERENCIADOR DE TAREFAS");
