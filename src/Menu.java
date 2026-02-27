@@ -103,142 +103,117 @@ public class Menu {
         }
     }
 
-    private void atualizarTarefa(){
-        if(!servicoTarefa.estaVazia()){
-            int tarefaEscolhida;
-
-            for(int i = 0; i < servicoTarefa.tamanho(); i++){
-                System.out.println("Tarefa " + (i + 1) + ": " + servicoTarefa.obter(i));
-            }
-
-            System.out.println("Qual tarefa desejar editar? (1 - " + servicoTarefa.tamanho() + ") ");
-            tarefaEscolhida = lerInteiro("Digite a tarefa desejada (1 - " + servicoTarefa.tamanho() + "): ", servicoTarefa.tamanho());
-            tarefaEscolhida--;
-
-            System.out.println("Tarefa escolhida: ");
-            System.out.println(servicoTarefa.obter(tarefaEscolhida));
-
-            if(tarefaEscolhida >= 0 && tarefaEscolhida < servicoTarefa.tamanho()){
-                int propriedadeEscolhida;
-
-                do{
-                    System.out.println("O que você deseja alterar? ");
-                    System.out.println("1 - Nome");
-                    System.out.println("2 - Descrição");
-                    System.out.println("3 - Data de término");
-                    System.out.println("4 - Nível de prioridade");
-                    System.out.println("5 - Categoria");
-                    System.out.println("6 - Status");
-                    System.out.println("7 - Sair");
-                    propriedadeEscolhida = lerInteiro("Digite a opção desejada (1 - 7): ", 7);
-
-                    switch(propriedadeEscolhida){
-                        case 1:
-                            String novoNomeTarefa;
-
-                            System.out.println("Nome: ");
-                            System.out.println(servicoTarefa.obter(tarefaEscolhida).getNome());
-                            System.out.println("Novo nome: ");
-                            novoNomeTarefa = leitura.nextLine();
-
-                            servicoTarefa.obter(tarefaEscolhida).setNome(novoNomeTarefa);
-
-                            System.out.println(servicoTarefa.obter(tarefaEscolhida));
-
-                            System.out.println("Nome alterado com sucesso!");
-
-                            break;
-                        case 2:
-                            String novaDescTarefa;
-
-                            System.out.println("Descrição: ");
-                            System.out.println(servicoTarefa.obter(tarefaEscolhida).getDescricao());
-                            System.out.println("Nova descrição: ");
-                            novaDescTarefa = leitura.nextLine();
-
-                            servicoTarefa.obter(tarefaEscolhida).setDescricao(novaDescTarefa);
-
-                            System.out.println(servicoTarefa.obter(tarefaEscolhida));
-
-                            System.out.println("Descrição alterada com sucesso!");
-
-                            break;
-                        case 3:
-                            LocalDate novaDataTarefa;
-
-                            System.out.println("Data de término: ");
-                            System.out.println(servicoTarefa.obter(tarefaEscolhida).getDataTermino());
-                            novaDataTarefa = lerData("Nova data de término (ex: 27/02/2026): ");
-
-                            servicoTarefa.obter(tarefaEscolhida).setDataTermino(novaDataTarefa);
-
-                            System.out.println(servicoTarefa.obter(tarefaEscolhida));
-
-                            System.out.println("Data de término alterada com sucesso");
-
-                            break;
-                        case 4:
-                            int novaPrioridadeTarefa;
-
-                            System.out.println("Nível de prioridade: ");
-                            System.out.println(servicoTarefa.obter(tarefaEscolhida).getNivelPrioridade());
-                            System.out.println("1 - Baixo");
-                            System.out.println("2 - Moderada");
-                            System.out.println("3 - Média");
-                            System.out.println("4 - Alta");
-                            System.out.println("5 - Crítica");
-                            novaPrioridadeTarefa = lerInteiro("Novo nível de prioridade (1 - 5): ", 5);
-
-                            servicoTarefa.obter(tarefaEscolhida).setNivelPrioridade(novaPrioridadeTarefa);
-
-                            System.out.println(servicoTarefa.obter(tarefaEscolhida));
-
-                            System.out.println("Nível de prioridade alterado com sucesso!");
-
-                            break;
-                        case 5:
-                            String novaCategoriaTarefa;
-
-                            System.out.println("Categoria: ");
-                            System.out.println(servicoTarefa.obter(tarefaEscolhida).getCategoria());
-                            System.out.println("Nova categoria: ");
-                            novaCategoriaTarefa = leitura.nextLine();
-
-                            servicoTarefa.obter(tarefaEscolhida).setCategoria(novaCategoriaTarefa);
-
-                            System.out.println(servicoTarefa.obter(tarefaEscolhida));
-
-                            System.out.println(("Categoria alterada com sucesso!"));
-
-                            break;
-                        case 6:
-                            int codigoNovoStatusTarefa;
-
-                            System.out.println("Status: ");
-                            System.out.println(servicoTarefa.obter(tarefaEscolhida).getStatus());
-                            System.out.println("1 - TODO");
-                            System.out.println("2 - Doing");
-                            System.out.println("3 - Done");
-                            codigoNovoStatusTarefa = lerInteiro("Novo status (1 - 3): ", 3);
-
-                            Status status = Status.fromCodigo(codigoNovoStatusTarefa);
-                            servicoTarefa.obter(tarefaEscolhida).setStatus(status);
-
-                            System.out.println(servicoTarefa.obter(tarefaEscolhida));
-
-                            System.out.println("Status alterado com sucesso!");
-
-                            break;
-                        case 7:
-                            System.out.println("Voltando ao menu...");
-                            break;
-                        default:
-                            System.out.println("Escolha uma opção válida");
-                    }
-                }while(propriedadeEscolhida != 7);
-            }
-        }else{
+    private void atualizarTarefa() {
+        if (servicoTarefa.estaVazia()) {
             System.out.println("Não existem tarefas registradas!");
+            return;
+        }
+
+        imprimirTarefas();
+
+        int tarefaEscolhida = lerInteiro(
+                "Digite a tarefa desejada (1 - " + servicoTarefa.tamanho() + "): ",
+                servicoTarefa.tamanho()
+        ) - 1;
+
+        if (tarefaEscolhida < 0 || tarefaEscolhida >= servicoTarefa.tamanho()) {
+            System.out.println("Selecione uma tarefa válida!");
+            return;
+        }
+
+        Tarefa tarefa = servicoTarefa.obter(tarefaEscolhida);
+
+        System.out.println("Tarefa escolhida: ");
+        System.out.println(tarefa);
+
+        int propriedadeEscolhida;
+        do {
+            propriedadeEscolhida = lerMenuAtualizacao();
+
+            switch (propriedadeEscolhida) {
+                case 1 -> alterarNome(tarefa);
+                case 2 -> alterarDescricao(tarefa);
+                case 3 -> alterarDataTermino(tarefa);
+                case 4 -> alterarNivelPrioridade(tarefa);
+                case 5 -> alterarCategoria(tarefa);
+                case 6 -> alterarStatus(tarefa);
+                case 7 -> System.out.println("Voltando ao menu...");
+                default -> System.out.println("Escolha uma opção válida");
+            }
+        } while (propriedadeEscolhida != 7);
+    }
+
+    private int lerMenuAtualizacao() {
+        System.out.println("O que você deseja alterar? ");
+        System.out.println("1 - Nome");
+        System.out.println("2 - Descrição");
+        System.out.println("3 - Data de término");
+        System.out.println("4 - Nível de prioridade");
+        System.out.println("5 - Categoria");
+        System.out.println("6 - Status");
+        System.out.println("7 - Sair");
+        return lerInteiro("Digite a opção desejada (1 - 7): ", 7);
+    }
+
+    private void alterarNome(Tarefa tarefa) {
+        System.out.println("Nome atual: " + tarefa.getNome());
+        System.out.print("Novo nome: ");
+        tarefa.setNome(leitura.nextLine());
+        System.out.println("Nome alterado com sucesso!");
+        System.out.println(tarefa);
+    }
+
+    private void alterarDescricao(Tarefa tarefa) {
+        System.out.println("Descrição atual: " + tarefa.getDescricao());
+        System.out.print("Nova descrição: ");
+        tarefa.setDescricao(leitura.nextLine());
+        System.out.println("Descrição alterada com sucesso!");
+        System.out.println(tarefa);
+    }
+
+    private void alterarDataTermino(Tarefa tarefa) {
+        System.out.println("Data atual: " + tarefa.getDataTermino());
+        LocalDate novaData = lerData("Nova data de término (ex: 27/02/2026): ");
+        tarefa.setDataTermino(novaData);
+        System.out.println("Data de término alterada com sucesso!");
+        System.out.println(tarefa);
+    }
+
+    private void alterarNivelPrioridade(Tarefa tarefa) {
+        System.out.println("Nível atual: " + tarefa.getNivelPrioridade());
+        System.out.println("1 - Baixo");
+        System.out.println("2 - Moderada");
+        System.out.println("3 - Média");
+        System.out.println("4 - Alta");
+        System.out.println("5 - Crítica");
+        int novaPrioridade = lerInteiro("Novo nível de prioridade (1 - 5): ", 5);
+        tarefa.setNivelPrioridade(novaPrioridade);
+        System.out.println("Nível de prioridade alterado com sucesso!");
+        System.out.println(tarefa);
+    }
+
+    private void alterarCategoria(Tarefa tarefa) {
+        System.out.println("Categoria atual: " + tarefa.getCategoria());
+        System.out.print("Nova categoria: ");
+        tarefa.setCategoria(leitura.nextLine());
+        System.out.println("Categoria alterada com sucesso!");
+        System.out.println(tarefa);
+    }
+
+    private void alterarStatus(Tarefa tarefa) {
+        System.out.println("Status atual: " + tarefa.getStatus());
+        System.out.println("1 - TODO");
+        System.out.println("2 - Doing");
+        System.out.println("3 - Done");
+        int codigo = lerInteiro("Novo status (1 - 3): ", 3);
+        tarefa.setStatus(Status.fromCodigo(codigo));
+        System.out.println("Status alterado com sucesso!");
+        System.out.println(tarefa);
+    }
+
+    private void imprimirTarefas() {
+        for (int i = 0; i < servicoTarefa.tamanho(); i++) {
+            System.out.println("Tarefa " + (i + 1) + ": " + servicoTarefa.obter(i));
         }
     }
 
