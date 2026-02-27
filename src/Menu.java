@@ -1,14 +1,12 @@
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.Scanner;
 
 public class Menu {
     public static void menu(){
         int resposta;
         Scanner leitura = new Scanner(System.in);
-        ArrayList<Tarefa> listaTarefas = new ArrayList<Tarefa>();
+        ServicoTarefa servicoTarefa = new ServicoTarefa();
 
         do{
             System.out.println("GERENCIADOR DE TAREFAS");
@@ -55,13 +53,12 @@ public class Menu {
                 Status status = Status.fromCodigo(codigoStatus);
 
                 Tarefa tarefa = new Tarefa(nomeTarefa, descricaoTarefa, dataTerminoTarefa, nivelPrioridadeTarefa, categoriaTarefa, status);
-                listaTarefas.add(tarefa);
+                servicoTarefa.adicionar(tarefa);
+                servicoTarefa.ordenarPorPrioridade();
 
-                System.out.println(tarefa);
-
-                listaTarefas.sort(Comparator.comparing(Tarefa::getNivelPrioridade));
-
-                System.out.println(listaTarefas);
+                for (Tarefa t : servicoTarefa.listar()) {
+                    System.out.println(t);
+                }
             }
 
             if(resposta == 2){
@@ -75,37 +72,37 @@ public class Menu {
                 opcaoListagem = Integer.parseInt(leitura.nextLine());
 
                 if (opcaoListagem == 1) {
-                    listaTarefas.sort((Tarefa t1, Tarefa t2) -> t1.getCategoria().compareToIgnoreCase(t2.getCategoria()));
+                    servicoTarefa.ordenarPorCategoria();
                 }else if(opcaoListagem == 2){
-                    listaTarefas.sort(Comparator.comparing(Tarefa::getNivelPrioridade));
+                    servicoTarefa.ordenarPorPrioridade();
                 }else if(opcaoListagem == 3){
-                    listaTarefas.sort(Comparator.comparing(Tarefa::getStatus));
+                    servicoTarefa.ordenarPorStatus();
                 }else{
                     System.out.println("Opção inexistente!");
                 }
 
                 if(opcaoListagem >= 1 && opcaoListagem <= 3) {
-                    for (Tarefa tarefa : listaTarefas) {
+                    for (Tarefa tarefa : servicoTarefa.listar()) {
                         System.out.println(tarefa);
                     }
                 }
             }
 
             if(resposta == 3){
-                if(!listaTarefas.isEmpty()){
+                if(!servicoTarefa.estaVazia()){
                     int tarefaEscolhida;
 
-                    for(int i = 0; i < listaTarefas.size(); i++){
-                        System.out.println("Tarefa " + (i + 1) + ": " + listaTarefas.get(i));
+                    for(int i = 0; i < servicoTarefa.tamanho(); i++){
+                        System.out.println("Tarefa " + (i + 1) + ": " + servicoTarefa.obter(i));
                     }
 
-                    System.out.println("Qual tarefa desejar editar? (1 - " + listaTarefas.size() + ") ");
+                    System.out.println("Qual tarefa desejar editar? (1 - " + servicoTarefa.tamanho() + ") ");
                     tarefaEscolhida = Integer.parseInt(leitura.nextLine()) - 1;
 
                     System.out.println("Tarefa escolhida: ");
-                    System.out.println(listaTarefas.get(tarefaEscolhida));
+                    System.out.println(servicoTarefa.obter(tarefaEscolhida));
 
-                    if(tarefaEscolhida >= 0 && tarefaEscolhida < listaTarefas.size()){
+                    if(tarefaEscolhida >= 0 && tarefaEscolhida < servicoTarefa.tamanho()){
                         int propriedadeEscolhida;
 
                         do{
@@ -124,13 +121,13 @@ public class Menu {
                                     String novoNomeTarefa;
 
                                     System.out.println("Nome: ");
-                                    System.out.println(listaTarefas.get(tarefaEscolhida).getNome());
+                                    System.out.println(servicoTarefa.obter(tarefaEscolhida).getNome());
                                     System.out.println("Novo nome: ");
                                     novoNomeTarefa = leitura.nextLine();
 
-                                    listaTarefas.get(tarefaEscolhida).setNome(novoNomeTarefa);
+                                    servicoTarefa.obter(tarefaEscolhida).setNome(novoNomeTarefa);
 
-                                    System.out.println(listaTarefas.get(tarefaEscolhida));
+                                    System.out.println(servicoTarefa.obter(tarefaEscolhida));
 
                                     System.out.println("Nome alterado com sucesso!");
 
@@ -139,13 +136,13 @@ public class Menu {
                                     String novaDescTarefa;
 
                                     System.out.println("Descrição: ");
-                                    System.out.println(listaTarefas.get(tarefaEscolhida).getDescricao());
+                                    System.out.println(servicoTarefa.obter(tarefaEscolhida).getDescricao());
                                     System.out.println("Nova descrição: ");
                                     novaDescTarefa = leitura.nextLine();
 
-                                    listaTarefas.get(tarefaEscolhida).setDescricao(novaDescTarefa);
+                                    servicoTarefa.obter(tarefaEscolhida).setDescricao(novaDescTarefa);
 
-                                    System.out.println(listaTarefas.get(tarefaEscolhida));
+                                    System.out.println(servicoTarefa.obter(tarefaEscolhida));
 
                                     System.out.println("Descrição alterada com sucesso!");
 
@@ -154,13 +151,13 @@ public class Menu {
                                     LocalDate novaDataTarefa;
 
                                     System.out.println("Data de término: ");
-                                    System.out.println(listaTarefas.get(tarefaEscolhida).getDataTermino());
+                                    System.out.println(servicoTarefa.obter(tarefaEscolhida).getDataTermino());
                                     System.out.println("Nova data de término (dia/mês/ano): ");
                                     novaDataTarefa = formataData(leitura.nextLine());
 
-                                    listaTarefas.get(tarefaEscolhida).setDataTermino(novaDataTarefa);
+                                    servicoTarefa.obter(tarefaEscolhida).setDataTermino(novaDataTarefa);
 
-                                    System.out.println(listaTarefas.get(tarefaEscolhida));
+                                    System.out.println(servicoTarefa.obter(tarefaEscolhida));
 
                                     System.out.println("Data de término alterada com sucesso");
 
@@ -169,7 +166,7 @@ public class Menu {
                                     int novaPrioridadeTarefa;
 
                                     System.out.println("Nível de prioridade: ");
-                                    System.out.println(listaTarefas.get(tarefaEscolhida).getNivelPrioridade());
+                                    System.out.println(servicoTarefa.obter(tarefaEscolhida).getNivelPrioridade());
                                     System.out.println("1 - Baixo");
                                     System.out.println("2 - Moderada");
                                     System.out.println("3 - Média");
@@ -178,9 +175,9 @@ public class Menu {
                                     System.out.println(("Novo nível de prioridade (1 - 5): "));
                                     novaPrioridadeTarefa = Integer.parseInt(leitura.nextLine());
 
-                                    listaTarefas.get(tarefaEscolhida).setNivelPrioridade(novaPrioridadeTarefa);
+                                    servicoTarefa.obter(tarefaEscolhida).setNivelPrioridade(novaPrioridadeTarefa);
 
-                                    System.out.println(listaTarefas.get(tarefaEscolhida));
+                                    System.out.println(servicoTarefa.obter(tarefaEscolhida));
 
                                     System.out.println("Nível de prioridade alterado com sucesso!");
 
@@ -189,13 +186,13 @@ public class Menu {
                                     String novaCategoriaTarefa;
 
                                     System.out.println("Categoria: ");
-                                    System.out.println(listaTarefas.get(tarefaEscolhida).getCategoria());
+                                    System.out.println(servicoTarefa.obter(tarefaEscolhida).getCategoria());
                                     System.out.println("Nova categoria: ");
                                     novaCategoriaTarefa = leitura.nextLine();
 
-                                    listaTarefas.get(tarefaEscolhida).setCategoria(novaCategoriaTarefa);
+                                    servicoTarefa.obter(tarefaEscolhida).setCategoria(novaCategoriaTarefa);
 
-                                    System.out.println(listaTarefas.get(tarefaEscolhida));
+                                    System.out.println(servicoTarefa.obter(tarefaEscolhida));
 
                                     System.out.println(("Categoria alterada com sucesso!"));
 
@@ -204,7 +201,7 @@ public class Menu {
                                     int codigoNovoStatusTarefa;
 
                                     System.out.println("Status: ");
-                                    System.out.println(listaTarefas.get(tarefaEscolhida).getStatus());
+                                    System.out.println(servicoTarefa.obter(tarefaEscolhida).getStatus());
                                     System.out.println("1 - TODO");
                                     System.out.println("2 - Doing");
                                     System.out.println("3 - Done");
@@ -212,9 +209,9 @@ public class Menu {
                                     codigoNovoStatusTarefa = Integer.parseInt(leitura.nextLine());
 
                                     Status status = Status.fromCodigo(codigoNovoStatusTarefa);
-                                    listaTarefas.get(tarefaEscolhida).setStatus(status);
+                                    servicoTarefa.obter(tarefaEscolhida).setStatus(status);
 
-                                    System.out.println(listaTarefas.get(tarefaEscolhida));
+                                    System.out.println(servicoTarefa.obter(tarefaEscolhida));
 
                                     System.out.println("Status alterado com sucesso!");
 
@@ -233,33 +230,33 @@ public class Menu {
             }
 
             if(resposta == 4){
-                if(!listaTarefas.isEmpty()){
+                if(!servicoTarefa.estaVazia()){
                     int tarefaEscolhida;
 
-                    for(int i = 0; i < listaTarefas.size(); i++){
-                        System.out.println("Tarefa " + (i + 1) + ": " + listaTarefas.get(i));
+                    for(int i = 0; i < servicoTarefa.tamanho(); i++){
+                        System.out.println("Tarefa " + (i + 1) + ": " + servicoTarefa.obter(i));
                     }
 
                     do{
-                        System.out.println("Qual tarefa deseja apagar? (1 - " + listaTarefas.size() + ") ");
+                        System.out.println("Qual tarefa deseja apagar? (1 - " + servicoTarefa.tamanho() + ") ");
                         tarefaEscolhida = Integer.parseInt(leitura.nextLine()) - 1;
 
-                        if(tarefaEscolhida >= 0 && tarefaEscolhida < listaTarefas.size()){
-                            listaTarefas.remove(tarefaEscolhida);
+                        if(tarefaEscolhida >= 0 && tarefaEscolhida < servicoTarefa.tamanho()){
+                            servicoTarefa.remover(tarefaEscolhida);
 
-                            for(int i = 0; i < listaTarefas.size(); i++){
-                                System.out.println("Tarefa " + (i + 1) + ": " + listaTarefas.get(i));
+                            for(int i = 0; i < servicoTarefa.tamanho(); i++){
+                                System.out.println("Tarefa " + (i + 1) + ": " + servicoTarefa.obter(i));
                             }
 
                             System.out.println("Tarefa removida com sucesso!");
 
-                            if(listaTarefas.size() == 0){
+                            if(servicoTarefa.tamanho() == 0){
                                 break;
                             }
                         }else{
                             System.out.println("Selecione uma tarefa válida!");
                         }
-                    }while(tarefaEscolhida < 0 || tarefaEscolhida >= listaTarefas.size());
+                    }while(tarefaEscolhida < 0 || tarefaEscolhida >= servicoTarefa.tamanho());
                 }else{
                     System.out.println("Não existem tarefas registradas!");
                 }
