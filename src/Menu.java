@@ -3,7 +3,15 @@ import java.time.format.DateTimeFormatter;
 import java.util.Scanner;
 
 public class Menu {
-    public static void menu(){
+    private final ServicoTarefa servicoTarefa;
+    private final Scanner leitura;
+
+    public Menu(){
+        this.servicoTarefa = new ServicoTarefa();
+        this.leitura = new Scanner(System.in);
+    }
+
+    public void iniciar(){
         int resposta;
         Scanner leitura = new Scanner(System.in);
         ServicoTarefa servicoTarefa = new ServicoTarefa();
