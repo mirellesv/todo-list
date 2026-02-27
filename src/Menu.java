@@ -51,9 +51,10 @@ public class Menu {
                 System.out.println(("1 - TODO"));
                 System.out.println("2 - Doing");
                 System.out.println("3 - Done");
-                statusTarefa = Integer.parseInt(leitura.nextLine());
+                int codigoStatus = Integer.parseInt(leitura.nextLine());
+                Status status = Status.fromCodigo(codigoStatus);
 
-                Tarefa tarefa = new Tarefa(nomeTarefa, descricaoTarefa, dataTerminoTarefa, nivelPrioridadeTarefa, categoriaTarefa, statusTarefa);
+                Tarefa tarefa = new Tarefa(nomeTarefa, descricaoTarefa, dataTerminoTarefa, nivelPrioridadeTarefa, categoriaTarefa, status);
                 listaTarefas.add(tarefa);
 
                 System.out.println(tarefa);
@@ -200,7 +201,7 @@ public class Menu {
 
                                     break;
                                 case 6:
-                                    int novoStatusTarefa;
+                                    int codigoNovoStatusTarefa;
 
                                     System.out.println("Status: ");
                                     System.out.println(listaTarefas.get(tarefaEscolhida).getStatus());
@@ -208,9 +209,10 @@ public class Menu {
                                     System.out.println("2 - Doing");
                                     System.out.println("3 - Done");
                                     System.out.println(("Novo status (1 - 3): "));
-                                    novoStatusTarefa = Integer.parseInt(leitura.nextLine());
+                                    codigoNovoStatusTarefa = Integer.parseInt(leitura.nextLine());
 
-                                    listaTarefas.get(tarefaEscolhida).setStatus(novoStatusTarefa);
+                                    Status status = Status.fromCodigo(codigoNovoStatusTarefa);
+                                    listaTarefas.get(tarefaEscolhida).setStatus(status);
 
                                     System.out.println(listaTarefas.get(tarefaEscolhida));
 

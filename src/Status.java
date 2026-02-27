@@ -1,40 +1,32 @@
-public class Status implements Comparable<Status> {
-    private int indicador;
-    private String status;
+public enum Status {
 
-    public Status(int indicador){
-        switch(indicador){
-            case 1:
-                this.status = "TODO";
-                break;
-            case 2:
-                this.status = "Doing";
-                break;
-            case 3:
-                this.status = "Done";
-                break;
-            default:
-                throw new IllegalArgumentException("Indicador inválido!");
+    TODO(1, "TODO"),
+    DOING(2, "Doing"),
+    DONE(3, "Done");
+
+    private final int codigo;
+    private final String descricao;
+
+    Status(int codigo, String descricao) {
+        this.codigo = codigo;
+        this.descricao = descricao;
+    }
+
+    public int getCodigo() {
+        return codigo;
+    }
+
+    public static Status fromCodigo(int codigo) {
+        for (Status s : values()) {
+            if (s.codigo == codigo) {
+                return s;
+            }
         }
-    }
-
-    public String getStatus() {
-        return status;
-    }
-
-    public void setStatus(String status) {
-        this.status = status;
+        throw new IllegalArgumentException("Status inválido: " + codigo);
     }
 
     @Override
     public String toString() {
-        return "Status{" +
-                "status='" + status + '\'' +
-                '}';
-    }
-
-    @Override
-    public int compareTo(Status outro) {
-        return Integer.compare(this.indicador, outro.indicador);
+        return descricao;
     }
 }

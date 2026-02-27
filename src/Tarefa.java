@@ -8,13 +8,13 @@ public class Tarefa {
     private String categoria;
     private Status status;
 
-    public Tarefa(String nome, String descricao, LocalDate dataTermino, int nivelPrioridade, String categoria, int indicadorStatus) {
+    public Tarefa(String nome, String descricao, LocalDate dataTermino, int nivelPrioridade, String categoria, Status status) {
         this.nome = nome;
         this.descricao = descricao;
         this.dataTermino = dataTermino;
         this.nivelPrioridade = new NivelPrioridade(nivelPrioridade);
         this.categoria = categoria;
-        this.status = new Status(indicadorStatus);
+        this.status = status;
     }
 
     public String getNome() {
@@ -59,9 +59,7 @@ public class Tarefa {
 
     public Status getStatus() { return status; }
 
-    public void setStatus(int indicadorStatus) {
-        this.status = new Status(indicadorStatus);
-    }
+    public void setStatus(Status status) { this.status = status; }
 
     @Override
     public String toString() {
