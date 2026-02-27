@@ -72,7 +72,7 @@ public class Tarefa {
                 "Prioridade:\n" +
                 nivelPrioridade + "\n" +
                 "Categoria: " + categoria + "\n" +
-                "model.Status: " + status + "\n" +
+                "Status: " + status + "\n" +
                 "------------------------------";
     }
 }
