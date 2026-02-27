@@ -1,3 +1,9 @@
+package ui;
+
+import model.Status;
+import model.Tarefa;
+import service.ServicoTarefa;
+
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Scanner;

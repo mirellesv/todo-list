@@ -1,3 +1,5 @@
+package model;
+
 public enum Status {
 
     TODO(1, "TODO"),

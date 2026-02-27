@@ -1,3 +1,5 @@
+package model;
+
 public class NivelPrioridade implements Comparable<NivelPrioridade> {
     private int nivelPrioridade;
     private String descricaoPrioridade;

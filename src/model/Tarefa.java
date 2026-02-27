@@ -1,3 +1,5 @@
+package model;
+
 import java.time.LocalDate;
 
 public class Tarefa {
@@ -70,7 +72,7 @@ public class Tarefa {
                 "Prioridade:\n" +
                 nivelPrioridade + "\n" +
                 "Categoria: " + categoria + "\n" +
-                "Status: " + status + "\n" +
+                "model.Status: " + status + "\n" +
                 "------------------------------";
     }
 }
