@@ -51,6 +51,6 @@ public class NivelPrioridade implements Comparable<NivelPrioridade> {
 
     @Override
     public int compareTo(NivelPrioridade outro) {
-        return this.nivelPrioridade < outro.nivelPrioridade ? 1 : this.nivelPrioridade > outro.nivelPrioridade ? -1 : 0;
+        return Integer.compare(outro.nivelPrioridade, this.nivelPrioridade);
     }
 }
